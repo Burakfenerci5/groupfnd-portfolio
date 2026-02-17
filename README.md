@@ -1,36 +1,92 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FND Group — AI Product Studio
 
-## Getting Started
+A modern, high-performance portfolio site built with Next.js 14, showcasing FND Group's AI Product Studio capabilities and methodology.
 
-First, run the development server:
+## 🚀 Tech Stack
+
+- **Framework:** Next.js 14 (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **Animation:** Framer Motion
+- **Icons:** Lucide React
+- **Deployment:** Vercel
+
+## ✨ Features
+
+- **Responsive Bento Grid** layout showcasing portfolio projects
+- **Animated Hero Section** with Spotlight effect and profile badge
+- **Proprietary Launch Engine Visualization** (3-step Flywheel)
+- **Horizontal Tech Stack Marquee** with infinite scroll
+- **Dark Mode UI** with cinematic noise overlay texture
+- **Glowing hover effects** and interactive card animations
+
+## 🛠️ Local Development
 
 ```bash
+# Install dependencies
+npm install
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Build for production
+npm run build
+
+# Start production server
+npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the site.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📦 Deployment
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Deploy to Vercel (Recommended)
 
-## Learn More
+1. Push your code to GitHub (already configured at `Burakfenerci5/groupfnd-portfolio`)
+2. Visit [vercel.com/new](https://vercel.com/new)
+3. Import your GitHub repository
+4. Vercel will auto-detect Next.js and configure build settings
+5. Click **Deploy**
 
-To learn more about Next.js, take a look at the following resources:
+**Environment Variables:** None required for this project.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Build Settings:**
+- Framework Preset: `Next.js`
+- Build Command: `npm run build` (auto-detected)
+- Output Directory: `.next` (auto-detected)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Alternative Deployment Options
 
-## Deploy on Vercel
+- **Netlify:** Connect GitHub repo, set build command to `npm run build`
+- **Railway:** One-click deploy with GitHub integration
+- **Self-hosted:** Run `npm run build && npm start` on any Node.js server
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📁 Project Structure
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+src/
+├── app/
+│   ├── layout.tsx          # Root layout with metadata
+│   ├── page.tsx            # Main landing page
+│   └── globals.css         # Global styles & noise overlay
+├── components/
+│   ├── hero.tsx            # Hero section with profile & CTAs
+│   ├── FeaturedWork.tsx    # 4-column Bento Grid portfolio
+│   ├── Flywheel.tsx        # Agency methodology visualization
+│   ├── Footer.tsx          # Contact & social links
+│   └── ui/
+│       ├── bento-grid.tsx  # Reusable grid components
+│       └── spotlight.tsx   # Animated spotlight effect
+└── lib/
+    └── utils.ts            # Utility functions (cn)
+```
+
+## 📧 Contact
+
+**Email:** burakf@groupfnd.com  
+**LinkedIn:** [linkedin.com/in/burakfenercioglu](https://www.linkedin.com/in/burakfenercioglu/)  
+**GitHub:** [github.com/Burakfenerci5](https://github.com/Burakfenerci5)
+
+---
+
+© 2026 FND Group. Built with Next.js & Agentforce Principles.
