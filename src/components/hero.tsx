@@ -67,7 +67,7 @@ function ProfileAvatar() {
         <div className="absolute inset-[4px] overflow-hidden rounded-full bg-slate-800">
           <Image
             src="/images/burak-profile.png"
-            alt="Burak Fenercioglu — Enterprise Architect & AI Product Owner"
+            alt="Burak Fenercioglu — Founder of FND Group AI Product Studio"
             fill
             className="object-cover"
             priority
@@ -83,9 +83,9 @@ function ProfileAvatar() {
           className="absolute -bottom-3 left-1/2 z-20 -translate-x-1/2"
         >
           <div className="flex items-center gap-2 rounded-full border border-white/10 bg-slate-900/60 px-4 py-2 shadow-xl shadow-black/20 backdrop-blur-xl">
-            <span className="text-base">🏆</span>
+            <span className="text-base">⚡</span>
             <span className="whitespace-nowrap text-xs font-semibold text-slate-200">
-              GenAI Expert
+              AI Product Studio
             </span>
           </div>
         </motion.div>
@@ -174,11 +174,11 @@ export function Hero() {
             className="mb-6 text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
           >
             <span className="bg-gradient-to-b from-white via-slate-200 to-slate-500 bg-clip-text text-transparent">
-              Architecting
+              Turn your dream app
             </span>
             <br />
             <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-violet-400 bg-clip-text text-transparent">
-              Intelligent Ecosystems.
+              into a revenue-generating reality.
             </span>
           </motion.h1>
 
@@ -187,18 +187,15 @@ export function Hero() {
             variants={fadeUp}
             className="mb-10 max-w-lg text-base leading-relaxed text-slate-400 md:text-lg"
           >
-            I bridge the gap between{" "}
-            <span className="text-slate-200">
-              Enterprise Salesforce Architecture
+            FND Group is a boutique AI Product Studio. We bridge the gap between{" "}
+            <span className="font-semibold text-slate-200">
+              Enterprise Architecture
             </span>{" "}
             and{" "}
-            <span className="text-slate-200">
-              Lean GenAI Product Development
-            </span>
-            .{" "}
-            <span className="text-slate-500">
-              19x Certified Architect &amp; AI Product Owner.
-            </span>
+            <span className="font-semibold text-slate-200">
+              Rapid GenAI Prototyping
+            </span>{" "}
+            to launch scalable products in weeks, not months.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -207,7 +204,7 @@ export function Hero() {
             className="flex flex-col items-center gap-4 sm:flex-row md:items-start"
           >
             <motion.a
-              href="#ecosystem"
+              href="mailto:burakf@groupfnd.com?subject=Start%20My%20Project&body=Hi%20Burak,%0A%0AI'd%20like%20to%20discuss%20a%20project%20with%20FND%20Group."
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
               className="btn-glow group relative inline-flex items-center gap-2 rounded-xl px-8 py-3.5 text-sm font-semibold text-cyan-300 shadow-lg shadow-cyan-500/10 sm:text-base"
@@ -221,22 +218,21 @@ export function Hero() {
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="transition-transform group-hover:rotate-12"
+                className="transition-transform group-hover:translate-x-1"
               >
-                <circle cx="12" cy="12" r="10" />
-                <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
-                <path d="M2 12h20" />
+                <path d="M5 12h14" />
+                <path d="m12 5 7 7-7 7" />
               </svg>
-              View the Ecosystem
+              Start Your Project
             </motion.a>
 
             <motion.a
-              href="#contact"
+              href="#ecosystem"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
               className="btn-ghost inline-flex items-center gap-2 rounded-xl px-8 py-3.5 text-sm font-semibold text-slate-300 sm:text-base"
             >
-              Hire Me as PO
+              View Our Portfolio
               <svg
                 width="16"
                 height="16"
@@ -246,12 +242,29 @@ export function Hero() {
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="transition-transform group-hover:translate-x-0.5"
+                className="transition-transform group-hover:translate-y-0.5"
               >
-                <path d="M5 12h14" />
-                <path d="m12 5 7 7-7 7" />
+                <path d="M12 5v14" />
+                <path d="m19 12-7 7-7-7" />
               </svg>
             </motion.a>
+          </motion.div>
+
+          {/* Social Proof */}
+          <motion.div
+            variants={fadeUp}
+            className="mt-8 flex flex-col items-center gap-2 md:items-start"
+          >
+            <span className="text-xs uppercase tracking-wider text-slate-600">
+              Trusted by leaders at
+            </span>
+            <div className="flex items-center gap-3 text-sm font-semibold">
+              <span className="text-slate-400">Salesforce</span>
+              <span className="h-4 w-px bg-slate-700" />
+              <span className="text-slate-400">GE</span>
+              <span className="h-4 w-px bg-slate-700" />
+              <span className="text-slate-400">Honeywell</span>
+            </div>
           </motion.div>
         </motion.div>
 

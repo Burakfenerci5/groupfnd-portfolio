@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { useState, useCallback } from "react";
-import { Linkedin, Github, Mail, Check, Copy, Download } from "lucide-react";
+import { Linkedin, Github, Mail, Check, Copy } from "lucide-react";
 
 /* ------------------------------------------------------------------ */
 /*  Copy-to-clipboard email button                                     */
@@ -175,8 +175,8 @@ export function Footer() {
             className="flex flex-col justify-center"
           >
             <motion.div variants={fadeUp}>
-              <span className="mb-2 inline-block rounded-full border border-cyan-500/20 bg-cyan-500/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-widest text-cyan-400">
-                Open to Work
+              <span className="mb-2 inline-block rounded-full border border-violet-500/20 bg-violet-500/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-widest text-violet-400">
+                Taking On New Projects
               </span>
             </motion.div>
 
@@ -184,39 +184,24 @@ export function Footer() {
               variants={fadeUp}
               className="mt-4 text-2xl font-bold tracking-tight text-slate-100 md:text-3xl"
             >
-              Seeking: GenAI Product Owner Role.
+              Ready to build your AI-first app?
             </motion.h3>
 
             <motion.p
               variants={fadeUp}
               className="mt-3 max-w-md text-base leading-relaxed text-slate-400"
             >
-              I bridge the gap between Enterprise Architecture and rapid AI
-              prototyping. Let&apos;s build something specific.
+              We partner with ambitious entrepreneurs to turn app ideas into
+              revenue-generating products. Enterprise architecture meets startup
+              velocity.
             </motion.p>
 
-            {/* Email CTA + Resume */}
+            {/* Email CTA */}
             <motion.div
               variants={fadeUp}
-              className="mt-8 flex max-w-md flex-col gap-3 sm:flex-row sm:items-stretch"
+              className="mt-8 max-w-md"
             >
-              <div className="flex-1">
-                <EmailButton />
-              </div>
-              <motion.a
-                href="/Burak_Fenercioglu_Resume.pdf"
-                download
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.97 }}
-                className={cn(
-                  "flex items-center justify-center gap-2 rounded-xl border px-5 py-4 text-sm font-semibold transition-all duration-300",
-                  "border-slate-700/50 bg-transparent text-slate-400",
-                  "hover:border-slate-500 hover:bg-slate-800/40 hover:text-slate-200"
-                )}
-              >
-                <Download className="h-4 w-4" strokeWidth={2} />
-                <span className="whitespace-nowrap">Resume</span>
-              </motion.a>
+              <EmailButton />
             </motion.div>
 
             {/* Social links */}

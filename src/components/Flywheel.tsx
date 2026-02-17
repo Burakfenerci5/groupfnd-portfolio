@@ -25,8 +25,8 @@ const nodes: NodeData[] = [
   {
     icon: Map,
     label: "Blueprint",
-    role: "The Diagnosis",
-    description: "Identifies the need. (e.g., 'We need SEO').",
+    role: "Strategy & Roadmapping",
+    description: "We don't guess; we use AI to architect your entire business model before writing a line of code.",
     color: {
       bg: "bg-cyan-500/10",
       border: "border-cyan-500/30",
@@ -38,7 +38,7 @@ const nodes: NodeData[] = [
     icon: Bot,
     label: "Hats",
     role: "The AI Workforce",
-    description: "Executes the plan. (e.g., 'Spins up an SEO Hat').",
+    description: "We build custom agents that automate your operations from Day 1.",
     color: {
       bg: "bg-amber-500/10",
       border: "border-amber-500/30",
@@ -49,8 +49,8 @@ const nodes: NodeData[] = [
   {
     icon: GraduationCap,
     label: "Vantage",
-    role: "The University",
-    description: "Agents go here to get 'Certified' on your data.",
+    role: "Knowledge Transfer",
+    description: "We ensure your team (and agents) are trained to scale the platform.",
     color: {
       bg: "bg-violet-500/10",
       border: "border-violet-500/30",
@@ -173,13 +173,13 @@ export function Flywheel() {
           className="mb-12 text-center md:mb-16"
         >
           <span className="mb-3 inline-block text-sm font-medium uppercase tracking-widest text-cyan-400/80">
-            How It Works
+            Our Methodology
           </span>
           <h2 className="text-4xl font-bold tracking-tight text-slate-100 md:text-5xl">
-            FND Group Flywheel
+            Our Proprietary Launch Engine
           </h2>
-          <p className="mx-auto mt-3 max-w-md text-sm text-slate-500 md:text-base">
-            A closed-loop economy of knowledge.
+          <p className="mx-auto mt-3 max-w-lg text-sm text-slate-500 md:text-base">
+            The 3-step framework that turns your vision into a scalable, revenue-generating product.
           </p>
         </motion.div>
 
@@ -192,7 +192,7 @@ export function Flywheel() {
           <div className="flex flex-col items-center gap-2">
             <AnimatedArrow color="rgba(56,189,248,0.6)" delay={0} />
             <span className="text-[9px] font-medium uppercase tracking-wider text-slate-600 sm:text-[10px]">
-              Assign Task
+              Deploy Agents
             </span>
           </div>
 
@@ -203,7 +203,7 @@ export function Flywheel() {
           <div className="flex flex-col items-center gap-2">
             <AnimatedArrow color="rgba(245,158,11,0.6)" delay={0.5} />
             <span className="text-[9px] font-medium uppercase tracking-wider text-slate-600 sm:text-[10px]">
-              Train
+              Train Team
             </span>
           </div>
 
@@ -236,7 +236,7 @@ export function Flywheel() {
             />
           </motion.div>
           <span className="text-[9px] font-medium uppercase tracking-wider text-slate-600 sm:text-[10px]">
-            Return Certified
+            Iterate & Improve
           </span>
           <div className="h-px w-16 bg-gradient-to-l from-transparent to-violet-500/30 sm:w-24" />
         </motion.div>
@@ -250,17 +250,16 @@ export function Flywheel() {
           className="mx-auto max-w-2xl text-center"
         >
           <h3 className="mb-5 text-2xl font-bold tracking-tight text-slate-100 md:text-3xl">
-            The Venture Studio Model.
+            Why It Matters
           </h3>
           <p className="text-base leading-relaxed text-slate-400 md:text-lg">
-            GroupFND is a closed-loop ecosystem.{" "}
-            <span className="font-semibold text-cyan-400/90">Blueprint</span>{" "}
-            creates the strategy,{" "}
-            <span className="font-semibold text-amber-400/90">Hats</span>{" "}
-            provides the AI agents to execute it, and{" "}
-            <span className="font-semibold text-violet-400/90">Vantage</span>{" "}
-            acts as the university where both humans and agents learn, ingest
-            data, and get certified.
+            Most agencies just write code. We deliver a{" "}
+            <span className="font-semibold text-slate-200">
+              closed-loop ecosystem
+            </span>
+            . By leveraging our internal suite of tools, we reduce development
+            time by 40% and ensure your product is enterprise-ready from the
+            first commit.
           </p>
 
           {/* Decorative divider */}
