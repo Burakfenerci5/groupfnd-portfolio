@@ -29,25 +29,26 @@ export function IdeaSketcher() {
 
     setIsGenerating(true);
     try {
-      // TODO: Replace with actual API call
-      // const response = await fetch("/api/generate-sketch", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify({ prompt }),
-      // });
-      // const data = await response.json();
-      // setGeneratedImageUrl(data.imageUrl);
+      const response = await fetch("/api/generate-sketch", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt }),
+      });
 
-      // Simulated API delay
-      await new Promise((resolve) => setTimeout(resolve, 2500));
-      
-      // Demo: Use a placeholder image (replace with actual API response)
-      setGeneratedImageUrl(
-        "https://placehold.co/800x600/1e293b/38bdf8?text=Architecture+Sketch"
-      );
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to generate sketch");
+      }
+
+      const data = await response.json();
+      setGeneratedImageUrl(data.imageUrl);
     } catch (error) {
       console.error("Failed to generate sketch:", error);
-      alert("Failed to generate sketch. Please try again.");
+      alert(
+        error instanceof Error
+          ? error.message
+          : "Failed to generate sketch. Please try again."
+      );
     } finally {
       setIsGenerating(false);
     }

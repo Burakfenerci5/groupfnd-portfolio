@@ -38,6 +38,17 @@ npm start
 
 Open [http://localhost:3000](http://localhost:3000) to view the site.
 
+## 🔑 Environment Variables
+
+Create a `.env.local` file in the root directory:
+
+```bash
+# OpenAI API Key (required for Idea Sketcher feature)
+OPENAI_API_KEY=sk-your-openai-key-here
+```
+
+**Get your OpenAI API key:** [https://platform.openai.com/api-keys](https://platform.openai.com/api-keys)
+
 ## 📦 Deployment
 
 ### Deploy to Vercel (Recommended)
@@ -46,9 +57,8 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
 2. Visit [vercel.com/new](https://vercel.com/new)
 3. Import your GitHub repository
 4. Vercel will auto-detect Next.js and configure build settings
-5. Click **Deploy**
-
-**Environment Variables:** None required for this project.
+5. **Add Environment Variable:** In Vercel project settings, add `OPENAI_API_KEY`
+6. Click **Deploy**
 
 **Build Settings:**
 - Framework Preset: `Next.js`
