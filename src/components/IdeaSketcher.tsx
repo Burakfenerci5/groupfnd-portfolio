@@ -117,15 +117,15 @@ export function IdeaSketcher() {
           <div className="mb-4 flex items-center justify-center gap-2">
             <Sparkles className="h-5 w-5 text-violet-400" strokeWidth={2} />
             <span className="text-sm font-medium uppercase tracking-widest text-violet-400">
-              Free AI-Powered Visualization
+              Free AI-Powered Wireframe
             </span>
           </div>
           <h2 className="text-4xl font-bold tracking-tight text-white md:text-5xl">
             See Your App Before It&apos;s Built
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base text-slate-300 md:text-lg">
-            Describe your app idea in plain English. Our AI will generate a stunning 
-            3D visualization of your concept. If it resonates, let&apos;s turn it into reality.
+            Describe your app idea in plain English. Our AI will sketch the key screens
+            and layouts as a professional wireframe. If it resonates, let&apos;s build it together.
           </p>
         </motion.div>
 
@@ -177,12 +177,12 @@ export function IdeaSketcher() {
             {isGenerating ? (
               <>
                 <Loader2 className="h-5 w-5 animate-spin" strokeWidth={2.5} />
-                Generating sketch...
+                Sketching your app...
               </>
             ) : (
               <>
                 <Sparkles className="h-5 w-5" strokeWidth={2} />
-                Generate 3D Visualization
+                Sketch My App
               </>
             )}
           </motion.button>
@@ -217,10 +217,10 @@ export function IdeaSketcher() {
                   {/* Loading text */}
                   <div className="text-center">
                     <p className="text-lg font-semibold text-slate-200 md:text-xl">
-                      Generating your sketch...
+                      Sketching your app screens...
                     </p>
                     <p className="mt-2 text-sm text-slate-400">
-                      This usually takes 15-30 seconds
+                      Our AI is drawing wireframes. This takes 10-20 seconds.
                     </p>
                   </div>
 
@@ -267,9 +267,9 @@ export function IdeaSketcher() {
                   <div className="relative aspect-[16/9] w-full overflow-hidden rounded-lg">
                     <Image
                       src={generatedImageUrl}
-                      alt="Generated UI/UX concept visualization"
+                      alt="Generated wireframe sketch of app screens"
                       fill
-                      className="object-cover"
+                      className="object-contain bg-white"
                     />
                   </div>
 
@@ -290,7 +290,7 @@ export function IdeaSketcher() {
                   <div className="mt-6 space-y-4">
                     <div className="rounded-xl border border-slate-700/40 bg-slate-800/40 p-5">
                       <p className="mb-4 text-center text-sm font-medium text-slate-300">
-                        Like what you see? Let&apos;s turn this into reality.
+                        Like the wireframes? Let&apos;s turn these sketches into a real product.
                       </p>
 
                       <div className="flex flex-col gap-3 sm:flex-row">
@@ -362,8 +362,7 @@ export function IdeaSketcher() {
                       {successMessage}
                     </p>
                     <p className="mt-2 text-sm text-slate-400">
-                      Check your inbox (and spam folder) for your concept
-                      visualization and next steps.
+                      Check your inbox for your wireframe sketches and next steps.
                     </p>
                   </motion.div>
                 )}
@@ -380,7 +379,7 @@ export function IdeaSketcher() {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="mt-8 text-center text-sm text-slate-500"
         >
-          ✨ No commitment required. Get a stunning 3D concept visualization in seconds.
+          ✨ No commitment required. Get professional wireframe sketches of your app idea in seconds.
         </motion.p>
       </div>
     </section>

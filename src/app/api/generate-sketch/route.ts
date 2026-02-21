@@ -25,7 +25,16 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const finalPrompt = `A breathtaking, high-end UI/UX design concept for: ${prompt}. Dark mode, sleek modern web application interface, glowing neon blue and purple accents, glassmorphism panels, perfectly aligned grid layout, professional Dribbble and Behance style, 8k resolution, highly detailed, masterpiece.`;
+    const finalPrompt = `A professional hand-drawn UX wireframe sketch on clean white paper for a web application about: ${prompt}
+
+The sketch shows 6 different app screens arranged in a neat 3x2 grid. Each screen is drawn inside a browser or phone frame with:
+- Navigation bars with menu icons and tabs
+- Content cards, lists, and data tables
+- Buttons, search bars, form inputs, and toggles
+- Sidebar navigation with labeled menu items
+- Charts, icons, and simple illustrations where relevant
+
+Style: Black pen ink on white paper, clean hand-drawn wireframe, UX designer napkin sketch, with neat handwritten labels. Looks like a product designer's sketchbook. Professional, clean lines, clearly readable layout structure. Each screen shows a different feature of the application.`;
 
     const output = await replicate.run(
       "black-forest-labs/flux-1.1-pro" as `${string}/${string}`,
