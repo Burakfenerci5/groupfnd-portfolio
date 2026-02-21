@@ -41,7 +41,7 @@ export function IdeaSketcher() {
       }
 
       const data = await response.json();
-      setGeneratedImageUrl(data.imageUrl);
+      setGeneratedImageUrl(data.url);
     } catch (error) {
       console.error("Failed to generate sketch:", error);
       alert(
@@ -264,10 +264,10 @@ export function IdeaSketcher() {
                     <div className="absolute inset-0 bg-gradient-to-t from-violet-500/10 via-transparent to-transparent" />
                   </div>
 
-                  <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg">
+                  <div className="relative aspect-[16/9] w-full overflow-hidden rounded-lg">
                     <Image
                       src={generatedImageUrl}
-                      alt="Generated architecture sketch"
+                      alt="Generated UI/UX concept visualization"
                       fill
                       className="object-cover"
                     />

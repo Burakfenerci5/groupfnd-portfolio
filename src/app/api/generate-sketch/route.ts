@@ -29,33 +29,25 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Magic prompt modifier: Transform user input into high-end product art
-    // Strategy: Create stunning glassmorphism product renders
-    const enhancedPrompt = `A breathtaking, high-end 3D isometric conceptual render of a digital platform for: ${prompt}. 
-
-The style is modern 'glassmorphism' featuring floating, translucent dark frosted glass panels and sleek 3D icons. Glowing neon cyan and sky-blue accents against a deep, dark slate background. 
-
-Do not attempt to write legible text; instead, use elegant abstract data visualizations, glowing geometric nodes, smooth floating UI-like shapes, and beautiful 3D representations of the core features. 
-
-Cinematic lighting with soft shadows and reflections. 8k resolution, product photography style, extremely polished and premium aesthetic.`;
+    // The Prompt Engineering: Wrap user's idea in high-end UI design context
+    const finalPrompt = `A breathtaking, high-end UI/UX design concept for: ${prompt}. Dark mode, sleek modern web application interface, glowing neon blue and purple accents, glassmorphism panels, perfectly aligned grid layout, professional Dribbble and Behance style, 8k resolution, highly detailed, masterpiece.`;
 
     console.log("Generating sketch for prompt:", prompt);
 
-    // Call Replicate API with FLUX 1.1 Pro (best quality)
+    // Call Replicate API with FLUX 1.1 Pro (excellent for UI and text)
     const output = await replicate.run(
       "black-forest-labs/flux-1.1-pro" as `${string}/${string}`,
       {
         input: {
-          prompt: enhancedPrompt,
-          aspect_ratio: "1:1",
-          output_format: "webp",
-          output_quality: 90,
-          safety_tolerance: 2,
+          prompt: finalPrompt,
+          aspect_ratio: "16:9", // Better for web app layouts
+          output_format: "jpg",
+          safety_tolerance: 5,
         },
       }
     );
 
-    // Extract image URL from output
+    // Parse Replicate output (can be string or array)
     let imageUrl: string | null = null;
 
     if (typeof output === "string") {
@@ -70,10 +62,9 @@ Cinematic lighting with soft shadows and reflections. 8k resolution, product pho
 
     console.log("Sketch generated successfully:", imageUrl);
 
-    // Return the image URL to the frontend
+    // Return the image URL in the expected format
     return NextResponse.json({
-      imageUrl,
-      success: true,
+      url: imageUrl,
     });
   } catch (error: unknown) {
     console.error("Error generating sketch:", error);
@@ -89,5 +80,5 @@ Cinematic lighting with soft shadows and reflections. 8k resolution, product pho
   }
 }
 
-// Optional: Prevent caching for this API route
+// Prevent caching for this API route
 export const dynamic = "force-dynamic";
