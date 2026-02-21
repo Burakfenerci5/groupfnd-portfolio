@@ -25,16 +25,20 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const finalPrompt = `A professional hand-drawn UX wireframe sketch on clean white paper for a web application about: ${prompt}
+    // Build a prompt that weaves the user's specific idea into every screen
+    const finalPrompt = `A professional hand-drawn UX wireframe sketch on white paper showing 6 app screens in a 3x2 grid, each inside a browser frame. Black pen ink, clean lines, UX designer sketchbook style.
 
-The sketch shows 6 different app screens arranged in a neat 3x2 grid. Each screen is drawn inside a browser or phone frame with:
-- Navigation bars with menu icons and tabs
-- Content cards, lists, and data tables
-- Buttons, search bars, form inputs, and toggles
-- Sidebar navigation with labeled menu items
-- Charts, icons, and simple illustrations where relevant
+This is a wireframe for: ${prompt}
 
-Style: Black pen ink on white paper, clean hand-drawn wireframe, UX designer napkin sketch, with neat handwritten labels. Looks like a product designer's sketchbook. Professional, clean lines, clearly readable layout structure. Each screen shows a different feature of the application.`;
+CRITICAL: Each of the 6 screens MUST have a large, clear handwritten title at the top and show UI elements SPECIFIC to the idea described above. The screens should show:
+- Screen 1: The dashboard/home screen with a welcome header, key metrics cards, and quick-action buttons relevant to the app idea
+- Screen 2: The main content list view with filterable cards, tags, and category tabs specific to the features described
+- Screen 3: A detail/editor view showing a form or content page with rich fields, dropdowns, and action buttons
+- Screen 4: A comparison or decision-tree view with a side-by-side layout or flowchart showing choices
+- Screen 5: A settings or configuration panel with toggles, checkboxes and option groups
+- Screen 6: An analytics/reporting view with hand-drawn charts, graphs, and summary stats
+
+Every screen must have handwritten labels and annotations that directly reference the specific concepts from the app idea. The wireframe should make someone immediately understand what this application does just by looking at the sketches.`;
 
     const output = await replicate.run(
       "black-forest-labs/flux-1.1-pro" as `${string}/${string}`,
