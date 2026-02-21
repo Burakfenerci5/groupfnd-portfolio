@@ -43,15 +43,18 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
 Create a `.env.local` file in the root directory:
 
 ```bash
-# OpenAI API Key (required for Idea Sketcher - image generation)
-OPENAI_API_KEY=sk-your-openai-key-here
+# Replicate API Token (required for Idea Sketcher - image generation)
+REPLICATE_API_TOKEN=r8_your-replicate-token-here
 
 # Resend API Key (required for Idea Sketcher - email delivery)
 RESEND_API_KEY=re-your-resend-key-here
 ```
 
 **Setup Instructions:**
-1. **OpenAI:** Get your API key from [https://platform.openai.com/api-keys](https://platform.openai.com/api-keys)
+1. **Replicate:** 
+   - Sign up at [https://replicate.com](https://replicate.com)
+   - Get your API token from [https://replicate.com/account/api-tokens](https://replicate.com/account/api-tokens)
+   - Uses FLUX 1.1 Pro model for high-quality 3D concept renders
 2. **Resend:** 
    - Sign up at [https://resend.com](https://resend.com)
    - Verify your sending domain (or use the test domain for development)
@@ -67,7 +70,7 @@ RESEND_API_KEY=re-your-resend-key-here
 3. Import your GitHub repository
 4. Vercel will auto-detect Next.js and configure build settings
 5. **Add Environment Variables:** In Vercel project settings, add:
-   - `OPENAI_API_KEY` (your OpenAI key)
+   - `REPLICATE_API_TOKEN` (your Replicate token)
    - `RESEND_API_KEY` (your Resend key)
 6. Click **Deploy**
 

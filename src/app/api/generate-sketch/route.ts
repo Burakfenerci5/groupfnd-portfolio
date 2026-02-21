@@ -1,20 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
-import OpenAI from "openai";
+import Replicate from "replicate";
 
 export async function POST(request: NextRequest) {
   try {
-    // Check for API key first
-    if (!process.env.OPENAI_API_KEY) {
-      console.error("OPENAI_API_KEY is not configured");
+    // Check for API token first
+    if (!process.env.REPLICATE_API_TOKEN) {
+      console.error("REPLICATE_API_TOKEN is not configured");
       return NextResponse.json(
         { error: "API configuration error. Please contact support." },
         { status: 500 }
       );
     }
 
-    // Initialize OpenAI client
-    const openai = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY,
+    // Initialize Replicate client
+    const replicate = new Replicate({
+      auth: process.env.REPLICATE_API_TOKEN,
     });
 
     // Extract prompt from request body
@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Magic prompt modifier: Transform user input into high-end product art
-    // Strategy: Let DALL-E be an artist, not a UI designer
+    // Strategy: Create stunning glassmorphism product renders
     const enhancedPrompt = `A breathtaking, high-end 3D isometric conceptual render of a digital platform for: ${prompt}. 
 
 The style is modern 'glassmorphism' featuring floating, translucent dark frosted glass panels and sleek 3D icons. Glowing neon cyan and sky-blue accents against a deep, dark slate background. 
@@ -41,22 +41,31 @@ Cinematic lighting with soft shadows and reflections. 8k resolution, product pho
 
     console.log("Generating sketch for prompt:", prompt);
 
-    // Call OpenAI DALL-E 3 API
-    const response = await openai.images.generate({
-      model: "dall-e-3",
-      prompt: enhancedPrompt,
-      n: 1,
-      size: "1024x1024",
-      quality: "standard",
-      style: "vivid", // Makes lighting and colors pop more than 'natural'
-      response_format: "url",
-    });
+    // Call Replicate API with FLUX 1.1 Pro (best quality)
+    const output = await replicate.run(
+      "black-forest-labs/flux-1.1-pro" as `${string}/${string}`,
+      {
+        input: {
+          prompt: enhancedPrompt,
+          aspect_ratio: "1:1",
+          output_format: "webp",
+          output_quality: 90,
+          safety_tolerance: 2,
+        },
+      }
+    );
 
-    // Extract image URL
-    const imageUrl = response.data?.[0]?.url;
+    // Extract image URL from output
+    let imageUrl: string | null = null;
+
+    if (typeof output === "string") {
+      imageUrl = output;
+    } else if (Array.isArray(output) && output.length > 0) {
+      imageUrl = output[0] as string;
+    }
 
     if (!imageUrl) {
-      throw new Error("No image URL returned from OpenAI");
+      throw new Error("No image URL returned from Replicate");
     }
 
     console.log("Sketch generated successfully:", imageUrl);
@@ -69,21 +78,11 @@ Cinematic lighting with soft shadows and reflections. 8k resolution, product pho
   } catch (error: unknown) {
     console.error("Error generating sketch:", error);
 
-    // Handle OpenAI-specific errors
-    if (error instanceof OpenAI.APIError) {
-      return NextResponse.json(
-        {
-          error: "Failed to generate sketch. Please try again.",
-          details: error.message,
-        },
-        { status: error.status || 500 }
-      );
-    }
-
-    // Handle generic errors
+    // Handle errors
     return NextResponse.json(
       {
-        error: "An unexpected error occurred. Please try again.",
+        error: "Failed to generate sketch. Please try again.",
+        details: error instanceof Error ? error.message : "Unknown error",
       },
       { status: 500 }
     );
