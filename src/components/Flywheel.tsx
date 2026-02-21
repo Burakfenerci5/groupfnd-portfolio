@@ -13,6 +13,7 @@ interface NodeData {
   label: string;
   role: string;
   description: string;
+  url: string;
   color: {
     bg: string;
     border: string;
@@ -27,6 +28,7 @@ const nodes: NodeData[] = [
     label: "Blueprint",
     role: "Strategy & Roadmapping",
     description: "We don't guess; we use AI to architect your entire business model before writing a line of code.",
+    url: "https://blueprint.groupfnd.com",
     color: {
       bg: "bg-cyan-500/10",
       border: "border-cyan-500/30",
@@ -39,6 +41,7 @@ const nodes: NodeData[] = [
     label: "Hats",
     role: "The AI Workforce",
     description: "We build custom agents that automate your operations from Day 1.",
+    url: "https://hats.groupfnd.com",
     color: {
       bg: "bg-amber-500/10",
       border: "border-amber-500/30",
@@ -51,6 +54,7 @@ const nodes: NodeData[] = [
     label: "Vantage",
     role: "Knowledge Transfer",
     description: "We ensure your team (and agents) are trained to scale the platform.",
+    url: "https://vantage.groupfnd.com",
     color: {
       bg: "bg-violet-500/10",
       border: "border-violet-500/30",
@@ -92,20 +96,24 @@ function FlywheelNode({ node, index }: { node: NodeData; index: number }) {
   const Icon = node.icon;
 
   return (
-    <motion.div
+    <motion.a
+      href={node.url}
+      target="_blank"
+      rel="noopener noreferrer"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.5, delay: 0.2 + index * 0.15 }}
-      className="flex flex-col items-center gap-3"
+      className="group/node flex flex-col items-center gap-3"
     >
       {/* Icon container */}
       <div className="relative">
         <div
           className={cn(
-            "absolute -inset-2 rounded-2xl opacity-20",
+            "absolute -inset-2 rounded-2xl opacity-20 transition-opacity duration-300",
             node.color.border,
-            "border"
+            "border",
+            "group-hover/node:opacity-40"
           )}
         />
         <div
@@ -115,22 +123,48 @@ function FlywheelNode({ node, index }: { node: NodeData; index: number }) {
             node.color.border,
             "shadow-lg",
             node.color.glow,
-            "bg-slate-900"
+            "bg-slate-900",
+            "transition-all duration-300",
+            "group-hover/node:scale-105 group-hover/node:ring-2",
+            node.color.border.replace("border-", "group-hover/node:ring-")
           )}
         >
           <Icon
             className={cn(
               "h-7 w-7 sm:h-9 sm:w-9 md:h-11 md:w-11",
-              node.color.text
+              node.color.text,
+              "transition-transform duration-300 group-hover/node:scale-110"
             )}
             strokeWidth={1.5}
           />
+        </div>
+
+        {/* Hover tooltip */}
+        <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 transition-opacity duration-300 group-hover/node:opacity-100">
+          <div className="flex items-center gap-1 rounded-md bg-slate-800/90 px-2 py-1 backdrop-blur-sm">
+            <span className="text-[10px] font-medium text-slate-300">
+              Launch App
+            </span>
+            <svg
+              width="10"
+              height="10"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              className="text-slate-400"
+            >
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+              <polyline points="15 3 21 3 21 9" />
+              <line x1="10" y1="14" x2="21" y2="3" />
+            </svg>
+          </div>
         </div>
       </div>
 
       {/* Text */}
       <div className="flex flex-col items-center gap-1">
-        <span className="text-base font-bold text-slate-200 sm:text-lg">
+        <span className="text-base font-bold text-slate-200 transition-colors duration-300 group-hover/node:text-slate-50 sm:text-lg">
           {node.label}
         </span>
         <span
@@ -145,7 +179,7 @@ function FlywheelNode({ node, index }: { node: NodeData; index: number }) {
           {node.description}
         </span>
       </div>
-    </motion.div>
+    </motion.a>
   );
 }
 
@@ -255,11 +289,15 @@ export function Flywheel() {
           <p className="text-base leading-relaxed text-slate-400 md:text-lg">
             Most agencies just write code. We deliver a{" "}
             <span className="font-semibold text-slate-200">
-              closed-loop ecosystem
+              live, closed-loop ecosystem
             </span>
-            . By leveraging our internal suite of tools, we reduce development
-            time by 40% and ensure your product is enterprise-ready from the
-            first commit.
+            . Click any node above to experience the platform:{" "}
+            <span className="font-semibold text-cyan-400">Blueprint</span>{" "}
+            creates the strategy,{" "}
+            <span className="font-semibold text-amber-400">Hats</span>{" "}
+            provides the AI agents to execute it, and{" "}
+            <span className="font-semibold text-violet-400">Vantage</span>{" "}
+            acts as the university where both humans and agents get certified.
           </p>
 
           {/* Decorative divider */}
