@@ -43,11 +43,20 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
 Create a `.env.local` file in the root directory:
 
 ```bash
-# OpenAI API Key (required for Idea Sketcher feature)
+# OpenAI API Key (required for Idea Sketcher - image generation)
 OPENAI_API_KEY=sk-your-openai-key-here
+
+# Resend API Key (required for Idea Sketcher - email delivery)
+RESEND_API_KEY=re-your-resend-key-here
 ```
 
-**Get your OpenAI API key:** [https://platform.openai.com/api-keys](https://platform.openai.com/api-keys)
+**Setup Instructions:**
+1. **OpenAI:** Get your API key from [https://platform.openai.com/api-keys](https://platform.openai.com/api-keys)
+2. **Resend:** 
+   - Sign up at [https://resend.com](https://resend.com)
+   - Verify your sending domain (or use the test domain for development)
+   - Get your API key from [https://resend.com/api-keys](https://resend.com/api-keys)
+   - Update the `from` email in `src/app/api/send-idea/route.ts` to match your verified domain
 
 ## 📦 Deployment
 
@@ -57,7 +66,9 @@ OPENAI_API_KEY=sk-your-openai-key-here
 2. Visit [vercel.com/new](https://vercel.com/new)
 3. Import your GitHub repository
 4. Vercel will auto-detect Next.js and configure build settings
-5. **Add Environment Variable:** In Vercel project settings, add `OPENAI_API_KEY`
+5. **Add Environment Variables:** In Vercel project settings, add:
+   - `OPENAI_API_KEY` (your OpenAI key)
+   - `RESEND_API_KEY` (your Resend key)
 6. Click **Deploy**
 
 **Build Settings:**

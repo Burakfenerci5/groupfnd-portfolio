@@ -59,25 +59,29 @@ export function IdeaSketcher() {
 
     setIsSending(true);
     try {
-      // TODO: Replace with actual API call
-      // const response = await fetch("/api/send-sketch", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify({ 
-      //     email: userEmail, 
-      //     prompt, 
-      //     imageUrl: generatedImageUrl 
-      //   }),
-      // });
-      // if (!response.ok) throw new Error("Failed to send");
+      const response = await fetch("/api/send-idea", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: userEmail,
+          prompt,
+          imageUrl: generatedImageUrl,
+        }),
+      });
 
-      // Simulated API delay
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to send");
+      }
+
       setSuccessMessage("Sketch sent! Burak will be in touch shortly.");
     } catch (error) {
       console.error("Failed to send email:", error);
-      alert("Failed to send. Please try again or email burakf@groupfnd.com directly.");
+      alert(
+        error instanceof Error
+          ? error.message
+          : "Failed to send. Please try again or email burakf@groupfnd.com directly."
+      );
     } finally {
       setIsSending(false);
     }
