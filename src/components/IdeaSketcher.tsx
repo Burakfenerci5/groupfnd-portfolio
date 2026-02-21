@@ -94,15 +94,15 @@ export function IdeaSketcher() {
   return (
     <section
       id="ideaSketcher"
-      className="relative overflow-hidden bg-[#020617] px-4 py-24 md:py-32"
+      className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 px-4 py-24 md:py-32"
     >
       {/* Top border glow */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-violet-500/30 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-violet-500/40 to-transparent" />
 
-      {/* Ambient blur orbs */}
+      {/* Ambient blur orbs - brighter */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-1/4 top-1/3 h-96 w-96 rounded-full bg-violet-500/[0.04] blur-3xl" />
-        <div className="absolute bottom-1/3 right-1/4 h-96 w-96 rounded-full bg-cyan-500/[0.03] blur-3xl" />
+        <div className="absolute left-1/4 top-1/3 h-96 w-96 rounded-full bg-violet-500/[0.08] blur-3xl" />
+        <div className="absolute bottom-1/3 right-1/4 h-96 w-96 rounded-full bg-cyan-500/[0.06] blur-3xl" />
       </div>
 
       <div className="relative z-10 mx-auto max-w-4xl">
@@ -116,16 +116,16 @@ export function IdeaSketcher() {
         >
           <div className="mb-4 flex items-center justify-center gap-2">
             <Sparkles className="h-5 w-5 text-violet-400" strokeWidth={2} />
-            <span className="text-sm font-medium uppercase tracking-widest text-violet-400/80">
-              Free Architecture Sketch
+            <span className="text-sm font-medium uppercase tracking-widest text-violet-400">
+              Free AI-Powered Visualization
             </span>
           </div>
-          <h2 className="text-4xl font-bold tracking-tight text-slate-100 md:text-5xl">
-            Draw Your Vision
+          <h2 className="text-4xl font-bold tracking-tight text-white md:text-5xl">
+            See Your App Before It&apos;s Built
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-base text-slate-400 md:text-lg">
-            Describe your AI app idea. Our engine will sketch the architecture.
-            If you like it, let&apos;s build it.
+          <p className="mx-auto mt-4 max-w-2xl text-base text-slate-300 md:text-lg">
+            Describe your app idea in plain English. Our AI will generate a stunning 
+            3D visualization of your concept. If it resonates, let&apos;s turn it into reality.
           </p>
         </motion.div>
 
@@ -135,13 +135,13 @@ export function IdeaSketcher() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 shadow-2xl backdrop-blur-sm md:p-8"
+          className="rounded-2xl border border-slate-700/60 bg-slate-800/80 p-6 shadow-2xl backdrop-blur-sm md:p-8"
         >
           {/* Step 1: Prompt input */}
           <div className="mb-6">
             <label
               htmlFor="ideaPrompt"
-              className="mb-2 block text-sm font-semibold text-slate-300"
+              className="mb-2 block text-sm font-semibold text-slate-200"
             >
               Step 1: Describe your app idea
             </label>
@@ -149,13 +149,13 @@ export function IdeaSketcher() {
               id="ideaPrompt"
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
-              placeholder="e.g., A CRM that uses AI to draft personalized video scripts for sales reps..."
+              placeholder="e.g., A Salesforce best practices app that helps developers choose between Flow, Apex, and custom solutions..."
               rows={5}
               disabled={isGenerating}
               className={cn(
-                "w-full rounded-xl border border-slate-700/60 bg-slate-950/80 px-4 py-3 text-sm text-slate-200 placeholder-slate-600",
+                "w-full rounded-xl border border-slate-600/60 bg-slate-900/80 px-4 py-3 text-sm text-slate-100 placeholder-slate-500",
                 "transition-all duration-300",
-                "focus:border-violet-500/40 focus:outline-none focus:ring-2 focus:ring-violet-500/20",
+                "focus:border-violet-400/60 focus:outline-none focus:ring-2 focus:ring-violet-400/30",
                 "disabled:cursor-not-allowed disabled:opacity-50"
               )}
             />
@@ -168,24 +168,84 @@ export function IdeaSketcher() {
             whileHover={{ scale: prompt.trim() && !isGenerating ? 1.02 : 1 }}
             whileTap={{ scale: prompt.trim() && !isGenerating ? 0.98 : 1 }}
             className={cn(
-              "flex w-full items-center justify-center gap-2 rounded-xl border px-6 py-4 text-sm font-semibold transition-all duration-300",
+              "flex w-full items-center justify-center gap-2 rounded-xl border px-6 py-4 text-base font-bold transition-all duration-300",
               prompt.trim() && !isGenerating
-                ? "border-violet-500/40 bg-violet-500/10 text-violet-300 shadow-lg shadow-violet-500/10 hover:bg-violet-500/15"
-                : "cursor-not-allowed border-slate-800 bg-slate-800/40 text-slate-600"
+                ? "border-violet-500/60 bg-gradient-to-r from-violet-500/20 to-cyan-500/20 text-white shadow-lg shadow-violet-500/20 hover:from-violet-500/30 hover:to-cyan-500/30"
+                : "cursor-not-allowed border-slate-700 bg-slate-800/40 text-slate-600"
             )}
           >
             {isGenerating ? (
               <>
-                <Loader2 className="h-4 w-4 animate-spin" strokeWidth={2.5} />
+                <Loader2 className="h-5 w-5 animate-spin" strokeWidth={2.5} />
                 Generating sketch...
               </>
             ) : (
               <>
-                <Sparkles className="h-4 w-4" strokeWidth={2} />
-                Sketch My Idea
+                <Sparkles className="h-5 w-5" strokeWidth={2} />
+                Generate 3D Visualization
               </>
             )}
           </motion.button>
+
+          {/* Loading overlay */}
+          <AnimatePresence>
+            {isGenerating && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="absolute inset-0 z-50 flex items-center justify-center rounded-2xl bg-slate-950/90 backdrop-blur-md"
+              >
+                <div className="flex flex-col items-center gap-6">
+                  {/* Large animated spinner */}
+                  <div className="relative">
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{
+                        duration: 1.5,
+                        repeat: Infinity,
+                        ease: "linear",
+                      }}
+                      className="h-20 w-20 rounded-full border-4 border-slate-700 border-t-violet-500 md:h-24 md:w-24"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <Sparkles className="h-8 w-8 text-violet-400 md:h-10 md:w-10" strokeWidth={2} />
+                    </div>
+                  </div>
+
+                  {/* Loading text */}
+                  <div className="text-center">
+                    <p className="text-lg font-semibold text-slate-200 md:text-xl">
+                      Generating your sketch...
+                    </p>
+                    <p className="mt-2 text-sm text-slate-400">
+                      This usually takes 15-30 seconds
+                    </p>
+                  </div>
+
+                  {/* Animated dots */}
+                  <div className="flex gap-2">
+                    {[0, 1, 2].map((i) => (
+                      <motion.div
+                        key={i}
+                        animate={{
+                          scale: [1, 1.2, 1],
+                          opacity: [0.3, 1, 0.3],
+                        }}
+                        transition={{
+                          duration: 1.5,
+                          repeat: Infinity,
+                          delay: i * 0.2,
+                        }}
+                        className="h-2 w-2 rounded-full bg-violet-400"
+                      />
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           {/* Result view */}
           <AnimatePresence mode="wait">
@@ -302,8 +362,8 @@ export function IdeaSketcher() {
                       {successMessage}
                     </p>
                     <p className="mt-2 text-sm text-slate-400">
-                      Check your inbox (and spam folder) for your architecture
-                      sketch.
+                      Check your inbox (and spam folder) for your concept
+                      visualization and next steps.
                     </p>
                   </motion.div>
                 )}
@@ -318,10 +378,9 @@ export function IdeaSketcher() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-8 text-center text-xs text-slate-600"
+          className="mt-8 text-center text-sm text-slate-500"
         >
-          No commitment required. This is a free, no-strings-attached
-          architectural exploration.
+          ✨ No commitment required. Get a stunning 3D concept visualization in seconds.
         </motion.p>
       </div>
     </section>
