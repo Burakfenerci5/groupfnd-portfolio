@@ -235,16 +235,13 @@ function HorizontalMarquee() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Blueprint decorative visual                                        */
+/*  Decorative visuals for ecosystem cards                             */
 /* ------------------------------------------------------------------ */
 
 function BlueprintVisual() {
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden">
-      {/* Base gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-sky-500/[0.07] to-violet-500/[0.07]" />
-
-      {/* Floating geometric shapes */}
+      <div className="absolute inset-0 bg-gradient-to-br from-sky-500/[0.06] to-sky-600/[0.04]" />
       <motion.div
         animate={{ rotate: 360 }}
         transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
@@ -253,17 +250,68 @@ function BlueprintVisual() {
       <motion.div
         animate={{ rotate: -360 }}
         transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
-        className="absolute -bottom-4 right-12 h-20 w-20 rounded-xl border border-violet-500/10"
+        className="absolute -bottom-4 right-12 h-20 w-20 rounded-xl border border-sky-500/10"
       />
-      <div className="absolute bottom-6 left-6 flex gap-1.5">
-        {[...Array(5)].map((_, i) => (
-          <div
+    </div>
+  );
+}
+
+function HatsVisual() {
+  return (
+    <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-violet-500/[0.06] to-violet-600/[0.04]" />
+      <motion.div
+        animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute right-4 top-4 h-24 w-24 rounded-full bg-violet-500/10 blur-2xl"
+      />
+    </div>
+  );
+}
+
+function VantageVisual() {
+  return (
+    <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/[0.06] to-emerald-600/[0.04]" />
+      <div className="absolute bottom-4 left-4 flex gap-1">
+        {[...Array(4)].map((_, i) => (
+          <motion.div
             key={i}
-            className="h-1 rounded-full bg-gradient-to-r from-sky-500/20 to-violet-500/20"
-            style={{ width: `${20 + i * 12}px` }}
+            initial={{ height: 0 }}
+            whileInView={{ height: `${40 + i * 15}%` }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: i * 0.1 }}
+            className="w-1.5 rounded-full bg-gradient-to-t from-emerald-500/30 to-emerald-400/10"
           />
         ))}
       </div>
+    </div>
+  );
+}
+
+function LiveBadge() {
+  return (
+    <div className="absolute right-4 top-4 flex items-center gap-1.5 rounded-md border border-emerald-500/20 bg-emerald-500/5 px-2 py-1">
+      <span className="relative flex h-1.5 w-1.5">
+        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
+        <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
+      </span>
+      <span className="text-[9px] font-semibold uppercase tracking-wider text-emerald-400">
+        Live
+      </span>
+      <svg
+        width="10"
+        height="10"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2.5"
+        className="text-emerald-400/70"
+      >
+        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+        <polyline points="15 3 21 3 21 9" />
+        <line x1="10" y1="14" x2="21" y2="3" />
+      </svg>
     </div>
   );
 }
@@ -390,113 +438,91 @@ export function FeaturedWork() {
           </WorkCard>
 
           {/* ======================================================= */}
-          {/*  Card B — Blueprint  (2 col × 1 row)                    */}
+          {/*  Card B — Blueprint  (1 col × 1 row)                    */}
           {/* ======================================================= */}
           <WorkCard
             href="https://blueprint.groupfnd.com"
-            glowColor="rgba(139,92,246,0.08)"
-            className="min-h-[240px] p-6 md:col-span-2 md:min-h-0"
+            glowColor="rgba(14,165,233,0.08)"
+            className="min-h-[240px] p-6 md:min-h-0"
           >
             <div data-glow className="absolute inset-0" />
             <BlueprintVisual />
 
             <div className="relative z-10 flex h-full flex-col">
-              <Badge className="mb-3 self-start border border-violet-400/20 bg-violet-500/10 text-violet-400">
-                Full Stack + GenAI
+              <Badge className="mb-3 self-start border border-sky-400/20 bg-sky-500/10 text-sky-400">
+                Strategy
               </Badge>
 
-              <h3 className="text-xl font-bold tracking-tight text-slate-100">
+              <h3 className="text-lg font-bold tracking-tight text-slate-100">
                 Blueprint
               </h3>
               <p className="mt-1.5 text-sm leading-relaxed text-slate-400">
-                AI-Powered Strategic Planning SaaS. Turns business goals into
-                actionable roadmaps with generative intelligence.
+                AI-powered strategic planning. Turn business goals into
+                actionable roadmaps.
               </p>
-
-              {/* Bottom decorative bar */}
-              <div className="mt-auto flex items-center gap-2 pt-4">
-                <div className="h-px flex-1 bg-gradient-to-r from-sky-500/20 via-violet-500/20 to-transparent" />
-                <span className="text-[10px] font-medium uppercase tracking-widest text-slate-600">
-                  SaaS
-                </span>
-              </div>
             </div>
 
-            <div className="absolute right-5 top-5 text-slate-600 transition-colors group-hover:text-slate-400">
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                <polyline points="15 3 21 3 21 9" />
-                <line x1="10" y1="14" x2="21" y2="3" />
-              </svg>
-            </div>
+            <LiveBadge />
           </WorkCard>
 
           {/* ======================================================= */}
-          {/*  Card C — Veeva LSC Planner  (1 col × 1 row)            */}
+          {/*  Card C — Hats  (1 col × 1 row)                         */}
           {/* ======================================================= */}
           <WorkCard
-            href="https://veeva-lsc-planner.vercel.app"
+            href="https://hats.groupfnd.com"
+            glowColor="rgba(139,92,246,0.08)"
+            className="min-h-[240px] p-6 md:min-h-0"
+          >
+            <div data-glow className="absolute inset-0" />
+            <HatsVisual />
+
+            <div className="relative z-10 flex h-full flex-col">
+              <Badge className="mb-3 self-start border border-violet-400/20 bg-violet-500/10 text-violet-400">
+                Execution
+              </Badge>
+
+              <h3 className="text-lg font-bold tracking-tight text-slate-100">
+                Hats
+              </h3>
+              <p className="mt-1.5 text-sm leading-relaxed text-slate-400">
+                The Autonomous AI Workforce. Deploy custom agents that execute
+                at scale.
+              </p>
+            </div>
+
+            <LiveBadge />
+          </WorkCard>
+
+          {/* ======================================================= */}
+          {/*  Card D — Vantage  (1 col × 1 row)                      */}
+          {/* ======================================================= */}
+          <WorkCard
+            href="https://vantage.groupfnd.com"
             glowColor="rgba(16,185,129,0.08)"
             className="min-h-[240px] p-6 md:min-h-0"
           >
             <div data-glow className="absolute inset-0" />
+            <VantageVisual />
 
-            <Badge className="mb-3 self-start border border-emerald-400/20 bg-emerald-500/10 text-emerald-400">
-              Optimization
-            </Badge>
+            <div className="relative z-10 flex h-full flex-col">
+              <Badge className="mb-3 self-start border border-emerald-400/20 bg-emerald-500/10 text-emerald-400">
+                Training
+              </Badge>
 
-            <h3 className="text-lg font-bold tracking-tight text-slate-100">
-              Veeva LSC Planner
-            </h3>
-            <p className="mt-1.5 text-sm leading-relaxed text-slate-400">
-              Resource optimization &amp; analytics for life sciences
-              commercial teams.
-            </p>
-
-            {/* Mini chart decoration */}
-            <div className="mt-auto flex items-end gap-1 pt-6">
-              {[40, 65, 45, 80, 55, 90, 70].map((h, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ height: 0 }}
-                  whileInView={{ height: `${h}%` }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: i * 0.08 }}
-                  className="w-full max-w-[12px] rounded-sm bg-gradient-to-t from-emerald-500/20 to-emerald-400/5"
-                  style={{ maxHeight: `${h}%`, minHeight: 4 }}
-                />
-              ))}
+              <h3 className="text-lg font-bold tracking-tight text-slate-100">
+                Vantage
+              </h3>
+              <p className="mt-1.5 text-sm leading-relaxed text-slate-400">
+                The AI-First University. Knowledge transfer that scales your
+                team.
+              </p>
             </div>
 
-            <div className="absolute right-5 top-5 text-slate-600 transition-colors group-hover:text-slate-400">
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                <polyline points="15 3 21 3 21 9" />
-                <line x1="10" y1="14" x2="21" y2="3" />
-              </svg>
-            </div>
+            <LiveBadge />
           </WorkCard>
 
           {/* ======================================================= */}
-          {/*  Card D — Services (NEW) (1 col × 1 row)                */}
+          {/*  Card E — Services  (1 col × 1 row)                     */}
           {/* ======================================================= */}
           <WorkCard
             href="#contact"
@@ -548,7 +574,7 @@ export function FeaturedWork() {
           </WorkCard>
 
           {/* ======================================================= */}
-          {/*  Card E — The Toolbelt  (4 col × 1 row, horizontal)     */}
+          {/*  Card F — The Toolbelt  (4 col × 1 row, horizontal)     */}
           {/* ======================================================= */}
           <WorkCard
             href="#toolbelt"
