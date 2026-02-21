@@ -29,8 +29,32 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Magic prompt modifier: Transform user input into technical sketch prompt
-    const enhancedPrompt = `A minimalist, high-tech architectural napkin sketch, blueprint style, white and light blue neon lines on a dark navy background. Technical wireframe concept for a software application based on this idea: ${prompt}. Do not include legible text, just conceptual UI/UX and architectural nodes.`;
+    // Extract key concepts to emphasize in the visual
+    const promptLower = prompt.toLowerCase();
+    let specificGuidance = "";
+
+    // Add context-specific guidance based on keywords
+    if (promptLower.includes("salesforce") || promptLower.includes("agentforce")) {
+      specificGuidance = "\n- Show Salesforce-style UI cards with cloud icons and SF branding aesthetic";
+    } else if (promptLower.includes("dashboard") || promptLower.includes("analytics")) {
+      specificGuidance = "\n- Show charts, graphs, and data visualization widgets";
+    } else if (promptLower.includes("crm") || promptLower.includes("customer")) {
+      specificGuidance = "\n- Show contact lists, profile cards, and interaction timelines";
+    } else if (promptLower.includes("ai") || promptLower.includes("chat") || promptLower.includes("agent")) {
+      specificGuidance = "\n- Show chat interface, AI assistant bubbles, and conversation flows";
+    }
+
+    // Magic prompt modifier: Transform user input into UI mockup
+    const enhancedPrompt = `A clean, modern web application UI mockup wireframe for: ${prompt}
+
+Style: Minimal blueprint aesthetic with white and light blue lines on dark navy background. Show a realistic browser/app interface with:
+- Top navigation bar with logo and menu items
+- Main content area with 2-4 key feature sections/cards clearly representing the core functionality
+- Sidebar with navigation or filters if appropriate
+- Include SHORT, READABLE labels and headings so viewers understand what each section does
+- Use geometric shapes, icons, and simple UI elements (buttons, cards, lists, forms)
+- Make it look like a REAL APP INTERFACE a user would see and interact with, NOT abstract technical architecture${specificGuidance}
+- Focus on the user-facing screens and experience`;
 
     console.log("Generating sketch for prompt:", prompt);
 
