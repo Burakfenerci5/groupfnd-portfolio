@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Sparkles, Send, Check, Loader2 } from "lucide-react";
 import Image from "next/image";
 
@@ -19,6 +19,60 @@ export function IdeaSketcher() {
   const [userEmail, setUserEmail] = useState("");
   const [isSending, setIsSending] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [progress, setProgress] = useState(0);
+  const [progressLabel, setProgressLabel] = useState("");
+  const progressInterval = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const clearProgressTimer = useCallback(() => {
+    if (progressInterval.current) {
+      clearInterval(progressInterval.current);
+      progressInterval.current = null;
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!isGenerating) {
+      clearProgressTimer();
+      return;
+    }
+
+    const startTime = Date.now();
+    setProgress(0);
+    setProgressLabel("Analyzing your idea...");
+
+    progressInterval.current = setInterval(() => {
+      const elapsed = (Date.now() - startTime) / 1000;
+
+      if (elapsed < 12) {
+        // Phase 1: LLM planning (0-35%)
+        const p = Math.min(35, (elapsed / 12) * 35);
+        setProgress(p);
+        if (elapsed < 3) setProgressLabel("Analyzing your idea...");
+        else if (elapsed < 8) setProgressLabel("Breaking idea into 6 screens...");
+        else setProgressLabel("Defining UI elements for each screen...");
+      } else if (elapsed < 18) {
+        // Phase 2: Rate limit pause (35-45%)
+        const p = 35 + ((elapsed - 12) / 6) * 10;
+        setProgress(p);
+        setProgressLabel("Preparing the wireframe engine...");
+      } else if (elapsed < 40) {
+        // Phase 3: FLUX generation (45-92%) — slows near the end
+        const frac = (elapsed - 18) / 22;
+        const eased = 1 - Math.pow(1 - frac, 2);
+        const p = 45 + eased * 47;
+        setProgress(Math.min(92, p));
+        if (elapsed < 25) setProgressLabel("Drawing screen layouts...");
+        else if (elapsed < 32) setProgressLabel("Sketching UI elements & labels...");
+        else setProgressLabel("Adding annotations & final details...");
+      } else {
+        // Stall at 92% — only the API response pushes to 100%
+        setProgress(92);
+        setProgressLabel("Almost done, finalizing...");
+      }
+    }, 200);
+
+    return clearProgressTimer;
+  }, [isGenerating, clearProgressTimer]);
 
   /* ---------------------------------------------------------------- */
   /*  Handlers                                                         */
@@ -41,6 +95,10 @@ export function IdeaSketcher() {
       }
 
       const data = await response.json();
+      clearProgressTimer();
+      setProgress(100);
+      setProgressLabel("Done!");
+      await new Promise((r) => setTimeout(r, 400));
       setGeneratedImageUrl(data.url);
     } catch (error) {
       console.error("Failed to generate sketch:", error);
@@ -51,6 +109,7 @@ export function IdeaSketcher() {
       );
     } finally {
       setIsGenerating(false);
+      setProgress(0);
     }
   };
 
@@ -187,7 +246,7 @@ export function IdeaSketcher() {
             )}
           </motion.button>
 
-          {/* Loading overlay */}
+          {/* Loading overlay with progress bar */}
           <AnimatePresence>
             {isGenerating && (
               <motion.div
@@ -197,50 +256,54 @@ export function IdeaSketcher() {
                 transition={{ duration: 0.3 }}
                 className="absolute inset-0 z-50 flex items-center justify-center rounded-2xl bg-slate-950/90 backdrop-blur-md"
               >
-                <div className="flex flex-col items-center gap-6">
-                  {/* Large animated spinner */}
+                <div className="flex w-full max-w-sm flex-col items-center gap-6 px-6">
+                  {/* Percentage display */}
                   <div className="relative">
+                    <div className="flex h-24 w-24 items-center justify-center rounded-full border-2 border-slate-700/60 bg-slate-900/80">
+                      <span className="text-2xl font-bold tabular-nums text-white">
+                        {Math.round(progress)}
+                        <span className="text-sm font-normal text-slate-400">%</span>
+                      </span>
+                    </div>
+                    {/* Rotating ring around the percentage */}
                     <motion.div
                       animate={{ rotate: 360 }}
-                      transition={{
-                        duration: 1.5,
-                        repeat: Infinity,
-                        ease: "linear",
-                      }}
-                      className="h-20 w-20 rounded-full border-4 border-slate-700 border-t-violet-500 md:h-24 md:w-24"
-                    />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <Sparkles className="h-8 w-8 text-violet-400 md:h-10 md:w-10" strokeWidth={2} />
+                      transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                      className="absolute inset-0"
+                    >
+                      <svg viewBox="0 0 96 96" className="h-full w-full">
+                        <circle
+                          cx="48" cy="48" r="46"
+                          fill="none"
+                          stroke="rgb(139 92 246 / 0.5)"
+                          strokeWidth="2"
+                          strokeDasharray="40 250"
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                    </motion.div>
+                  </div>
+
+                  {/* Progress bar */}
+                  <div className="w-full">
+                    <div className="h-2 w-full overflow-hidden rounded-full bg-slate-800">
+                      <motion.div
+                        className="h-full rounded-full bg-gradient-to-r from-violet-500 to-cyan-400"
+                        initial={{ width: "0%" }}
+                        animate={{ width: `${progress}%` }}
+                        transition={{ duration: 0.3, ease: "easeOut" }}
+                      />
                     </div>
                   </div>
 
-                  {/* Loading text */}
+                  {/* Status label */}
                   <div className="text-center">
-                    <p className="text-lg font-semibold text-slate-200 md:text-xl">
-                      Sketching your app screens...
+                    <p className="text-sm font-medium text-slate-300">
+                      {progressLabel}
                     </p>
-                    <p className="mt-2 text-sm text-slate-400">
-                      Our AI is drawing wireframes. This takes 10-20 seconds.
+                    <p className="mt-1 text-xs text-slate-500">
+                      This takes about 30-45 seconds
                     </p>
-                  </div>
-
-                  {/* Animated dots */}
-                  <div className="flex gap-2">
-                    {[0, 1, 2].map((i) => (
-                      <motion.div
-                        key={i}
-                        animate={{
-                          scale: [1, 1.2, 1],
-                          opacity: [0.3, 1, 0.3],
-                        }}
-                        transition={{
-                          duration: 1.5,
-                          repeat: Infinity,
-                          delay: i * 0.2,
-                        }}
-                        className="h-2 w-2 rounded-full bg-violet-400"
-                      />
-                    ))}
                   </div>
                 </div>
               </motion.div>
